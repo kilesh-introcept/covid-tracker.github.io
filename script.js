@@ -80,6 +80,7 @@ const countryTrackerTemplate = (countryData) => {
 const globalTrackerElement = document.getElementById("global-tracker");
 const countryTrackerElement = document.getElementById("country-tracker");
 const countryTitle = document.getElementById("country-title");
+const globalLastUpdate = document.getElementById("global-last-update");
 
 const getCountryData = async (selectedCountry) => {
   const countryData = datas.Countries.find((country) => {
@@ -92,6 +93,9 @@ const getCountryData = async (selectedCountry) => {
 const showData = async () => {
   if (!loading) {
     const globalData = datas.Global;
+    globalLastUpdate.innerHTML = `Last updated: ${new Date(
+      globalData.Date
+    ).toDateString()}`;
 
     getCountryData("Nepal");
 
@@ -108,7 +112,7 @@ const showData = async () => {
 const countryAutocomplete = async (countries) => {
   window.handleClick = (country) => {
     getCountryData(country);
-    countrySearch.value = country;
+    countrySearch.value = "";
     countryListElement.innerHTML = "";
   };
 
@@ -137,9 +141,7 @@ const countryAutocomplete = async (countries) => {
     });
   }
 
-  countrySearch.addEventListener("keyup", () => {
-    const searchValue = countrySearch.value;
-    const filteredCountries = filterData(countries, searchValue);
-    loadData(filteredCountries, countryListElement);
+  countrySearch.addEventListener("input", () => {
+    loadData(filterData(countries, countrySearch.value), countryListElement);
   });
 };
