@@ -1,6 +1,6 @@
 import { countryTrackerTemplate } from "../template/trackerTemplate.js";
 
-export const countryAutocomplete = async (datas, countries) => {
+export const countryAutocomplete = async (datas) => {
   window.handleClick = (country) => {
     getCountryData(datas, country);
     countrySearch.value = "";
@@ -26,8 +26,8 @@ export const countryAutocomplete = async (datas, countries) => {
     data.map((country) => {
       innerHTML += `
         <li id="list-item" 
-          onclick="handleClick('${country}')" 
-          value="${country}">${country}
+          onclick="handleClick('${country.Slug}')" 
+          value="${country.Slug}">${country.Country}
         </li>`;
     });
     element.innerHTML = innerHTML;
@@ -36,12 +36,12 @@ export const countryAutocomplete = async (datas, countries) => {
   //filtering the data in the autocomplete list
   function filterData(data, searchValue) {
     return data.filter((country) => {
-      return country.toLowerCase().includes(searchValue.toLowerCase());
+      return country.Country.toLowerCase().includes(searchValue.toLowerCase());
     });
   }
 
   countrySearch.addEventListener("click", () => {
-    loadData(countries, countryListElement);
+    loadData(datas.Countries, countryListElement);
   });
   document.onclick = (e) => {
     if (e.target.id !== "list-item") {
@@ -50,7 +50,10 @@ export const countryAutocomplete = async (datas, countries) => {
   };
 
   countrySearch.addEventListener("keyup", () => {
-    loadData(filterData(countries, countrySearch.value), countryListElement);
+    loadData(
+      filterData(datas.Countries, countrySearch.value),
+      countryListElement
+    );
   });
 };
 
@@ -60,18 +63,9 @@ export const getCountryData = async (datas, selectedCountry) => {
   const countryTitle = document.getElementById("country-title");
 
   const countryData = datas.Countries.find((country) => {
-    return country.Country === selectedCountry;
+    return country.Slug === selectedCountry;
   });
 
-  // // const url =
-  // //   `https://api.covid19api.com/country/south-africa?from=2020-03-01T00:00:00Z&to=2020-04-01T00:00:00Z`;
-  // // const countryData = await fetch(url)
-  // //   .then((res) => res.json())
-  // //   .then((data) => {
-  // //     return data;
-  // //   });
-  // console.log(countryData);
-
-  countryTitle.innerHTML = `COVID-19 Tracker of ${selectedCountry}`;
+  countryTitle.innerHTML = `COVID-19 Tracker of ${countryData.Country}`;
   countryTrackerElement.innerHTML = countryTrackerTemplate(countryData);
 };
