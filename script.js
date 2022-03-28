@@ -3,7 +3,7 @@ import { countryAutocomplete, getCountryData } from "./utils/autoComplete.js";
 
 const url = "https://api.covid19api.com/summary";
 let datas = {};
-let defultCountry = "Nepal";
+let defultCountry = "nepal";
 let loading = true;
 const fetchData = async () => {
   await fetch(url)
@@ -29,11 +29,7 @@ const showData = async () => {
 
     getCountryData(datas, defultCountry);
 
-    const countries = datas.Countries.map((country) => {
-      return country.Country;
-    });
-
-    countryAutocomplete(datas, countries);
+    countryAutocomplete(datas);
 
     globalTrackerElement.innerHTML = globalTrackerTemplate(globalData);
   }
