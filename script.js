@@ -1,6 +1,5 @@
 import { globalTrackerTemplate } from "./template/trackerTemplate.js";
 import { countryAutocomplete, getCountryData } from "./utils/autoComplete.js";
-
 const url = "https://api.covid19api.com/summary";
 let datas = {};
 let defultCountry = "nepal";
@@ -12,7 +11,6 @@ const fetchData = async () => {
       loading = false;
       datas = data;
       showData(data);
-      console.log(data);
     });
 };
 fetchData();

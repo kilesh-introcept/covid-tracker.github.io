@@ -7,6 +7,7 @@
     <title>COVID-19</title>
     <link rel="stylesheet" href="./css/styles.css" />
     <script type="module" src="script.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
   <body>
     <div class="container">
@@ -32,6 +33,9 @@
         <p id="country-last-update"></p>
       </div>
       <div id="country-tracker" class="tracker-container"></div>
+      <div id="chart" class="card">
+        <canvas id="myChart"> </canvas>
+      </div>
     </div>
   </body>
 </html>

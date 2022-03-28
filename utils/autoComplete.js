@@ -1,4 +1,5 @@
 import { countryTrackerTemplate } from "../template/trackerTemplate.js";
+import LineChart from "../charts/linechart.js";
 
 export const countryAutocomplete = async (datas) => {
   window.handleClick = (country) => {
@@ -13,10 +14,7 @@ export const countryAutocomplete = async (datas) => {
   //loading data in the autocomplete list
   const loadData = (data, element) => {
     let innerHTML = "";
-    // if (countrySearch.value.length === 0) {
-    //   element.innerHTML = "";
-    //   return;
-    // }
+
     if (data.length === 0) {
       innerHTML = `<li id="list-item" 
   
@@ -66,6 +64,29 @@ export const getCountryData = async (datas, selectedCountry) => {
     return country.Slug === selectedCountry;
   });
 
+  const toDate = new Date(datas.Date).setUTCHours(0, 0, 0, 0);
+
+  const prevweek = () => {
+    var today = new Date();
+    var prevweek = new Date(
+      today.getFullYear(),
+      today.getMonth(),
+      today.getDate() - 6
+    );
+    return prevweek;
+  };
+
+  const fromDate = prevweek().toISOString();
+
+  const url = `https://api.covid19api.com/country/${selectedCountry}?from=${fromDate}&to=${toDate}`;
+  const multiDaysData = await fetch(url)
+    .then((res) => res.json())
+    .then((data) => {
+      return data;
+    });
+
   countryTitle.innerHTML = `COVID-19 Tracker of ${countryData.Country}`;
   countryTrackerElement.innerHTML = countryTrackerTemplate(countryData);
+
+  LineChart(multiDaysData);
 };
