@@ -59,6 +59,7 @@ export const countryAutocomplete = async (datas) => {
 export const getCountryData = async (datas, selectedCountry) => {
   const countryTrackerElement = document.getElementById("country-tracker");
   const countryTitle = document.getElementById("country-title");
+  const dataSwitch = document.getElementById("data-switch");
 
   const countryData = datas.Countries.find((country) => {
     return country.Slug === selectedCountry;
@@ -77,12 +78,18 @@ export const getCountryData = async (datas, selectedCountry) => {
   };
 
   const fromDate = prevweek().toISOString();
+  console.log(selectedCountry);
+
+  //fetching data of 7 days for chart
 
   const url = `https://api.covid19api.com/country/${selectedCountry}?from=${fromDate}&to=${toDate}`;
   const multiDaysData = await fetch(url)
     .then((res) => res.json())
     .then((data) => {
       return data;
+    })
+    .catch((err) => {
+      console.log(err);
     });
 
   countryTitle.innerHTML = `COVID-19 Tracker of ${countryData.Country}`;

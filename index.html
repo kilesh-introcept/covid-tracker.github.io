@@ -11,9 +11,10 @@
   </head>
   <body>
     <div class="container">
+      <p id="last-update" class="last-update"></p>
+
       <div class="tracker-title">
         <h1>Global COVID-19 Tracker</h1>
-        <p id="global-last-update"></p>
       </div>
       <div id="global-tracker" class="tracker-container"></div>
 
@@ -30,11 +31,18 @@
 
       <div class="tracker-title">
         <h1 id="country-title"></h1>
-        <p id="country-last-update"></p>
       </div>
       <div id="country-tracker" class="tracker-container"></div>
-      <div id="chart" class="card">
-        <canvas id="myChart"> </canvas>
+      <div class="tracker-container">
+        <div id="chart" class="card">
+          <div class="chart-head">
+            <h2 class="chart-title">
+              Chart showing covid datas of last 7 days.
+            </h2>
+            <!-- <button id="data-switch">Show all</button> -->
+          </div>
+          <canvas id="myChart"> </canvas>
+        </div>
       </div>
     </div>
   </body>
