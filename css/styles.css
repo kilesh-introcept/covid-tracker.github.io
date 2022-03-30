@@ -60,6 +60,12 @@ form {
   gap: 2rem;
 }
 
+.last-update {
+  font-size: 0.8rem;
+  color: var(--clr-secondary);
+  font-weight: 700;
+}
+
 .tracker-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));

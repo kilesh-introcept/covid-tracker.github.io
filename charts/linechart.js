@@ -1,6 +1,5 @@
 const LineChart = (datas) => {
   let myChart = document.getElementById("myChart").getContext("2d");
-
   let datesArr = datas.map((data) => {
     const dateFormat = new Date(data.Date);
     return (
@@ -13,7 +12,7 @@ const LineChart = (datas) => {
   let confirmedArr = datas.map((data) => {
     return data.Confirmed;
   });
-
+  console.log(confirmedArr);
   let deathsArr = datas.map((data) => {
     return data.Deaths;
   });
@@ -22,7 +21,7 @@ const LineChart = (datas) => {
     return data.Recovered;
   });
 
-  let barChart = new Chart(myChart, {
+  const covidLineChart = new Chart(myChart, {
     type: "line",
     data: {
       labels: datesArr,
@@ -30,19 +29,20 @@ const LineChart = (datas) => {
         {
           label: "Total Confirmed",
           data: confirmedArr,
-          backgroundColor: ["#ff0000", "#ff0000", "#ff0000"],
+          backgroundColor: "#ff0000",
           borderWidth: 1,
         },
         {
           label: "Total Recovered",
           data: recoveredArr,
-          backgroundColor: ["#00ff00", "#00ff00", "#00ff00"],
+          backgroundColor: "#00ff00",
           borderWidth: 1,
         },
+
         {
           label: "Total Deaths",
           data: deathsArr,
-          backgroundColor: ["#0000ff", "#0000ff", "#0000ff"],
+          backgroundColor: "#0000ff",
           borderWidth: 1,
         },
       ],
